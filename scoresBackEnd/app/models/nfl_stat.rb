@@ -1,0 +1,2 @@
+class NflStat < ApplicationRecord
+end
