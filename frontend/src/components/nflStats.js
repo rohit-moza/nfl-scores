@@ -7,8 +7,7 @@ const columns = [
   {
     title: "Player Name",
     dataIndex: "player",
-    key: "player",
-    sortOrder: ['ascend', 'descend']
+    key: "player"
   }, 
   {
     title: "Team",
@@ -26,9 +25,11 @@ const columns = [
     key: "att_g"
   },
   {
-    title: "Yrds",
+    title: "Total Rushing Yards",
     dataIndex: "yds",
-    key: "yds"
+    key: "yds",
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.yds - b.yds,
   },
   {
     title: "Avg",
@@ -41,14 +42,18 @@ const columns = [
     key: "yds_g"
   },
   {
-    title: "TD",
+    title: "Total Rushing Touchdowns",
     dataIndex: "td",
-    key: "td"
+    key: "td",
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.td - b.td,
   },
   {
-    title: "Lng",
+    title: "Longest Rush",
     dataIndex: "lng",
-    key: "lng"
+    key: "lng", 
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => parseInt(a.lng) - parseInt(b.lng),
   },
   {
     title: "1st",
