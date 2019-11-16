@@ -1,8 +1,7 @@
 class Api::NflStatsController < ApplicationController 
 
   def index 
-    
-    render json: {msg: "OK"}
+    render json: NflStat.all 
   end
 
 end
