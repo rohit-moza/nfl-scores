@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Input, Button, Icon } from 'antd'
+import { Table, Input, Button, Icon, PageHeader } from 'antd'
 import 'antd/dist/antd.css'
 import { CSVLink } from "react-csv"
 
@@ -9,12 +9,12 @@ const NflStats = () => {
   const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
-  fetch("http://localhost:5000/api/nfl_stats")
-     .then(response => response.json())
-     .then(data => setStatsList(data));
+    fetch("http://localhost:5000/api/nfl_stats")
+      .then(response => response.json())
+      .then(data => setStatsList(data));
   }, [])
 
-  
+
   const handleSearch = (selectedKeys, confirm) => {
     confirm()
   }
@@ -23,8 +23,9 @@ const NflStats = () => {
     clearFilters()
   }
 
-  let handleChange = (pagination: any, filters: any, sorter: any, extra: { currentDataSource: Array<any>[] }) => 
+  let handleChange = (pagination: any, filters: any, sorter: any, extra: { currentDataSource: Array<any>[] }) => {
     setFilteredData(extra['currentDataSource'])
+  }
 
   let getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -58,154 +59,162 @@ const NflStats = () => {
         .toString()
         .toLowerCase()
         .includes(value.toLowerCase()),
-})
+  })
 
-const columns = [
-  {
-    title: "Player Name",
-    dataIndex: "player",
-    key: "player",
-    ...getColumnSearchProps('player')
-  }, 
-  {
-    title: "Team",
-    dataIndex: "team",
-    key: "team"
-  },
-  {
-    title: "Pos",
-    dataIndex: "pos",
-    key: "pos"
-  },
-  {
-    title: "Att/G",
-    dataIndex: "att_g",
-    key: "att_g"
-  },
-  {
-    title: "Total Rushing Yards",
-    dataIndex: "yds",
-    key: "yds",
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.yds - b.yds,
-  },
-  {
-    title: "Avg",
-    dataIndex: "avg",
-    key: "avg"
-  },
-  {
-    title: "Yds/G",
-    dataIndex: "yds_g",
-    key: "yds_g"
-  },
-  {
-    title: "Total Rushing Touchdowns",
-    dataIndex: "td",
-    key: "td",
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.td - b.td,
-  },
-  {
-    title: "Longest Rush",
-    dataIndex: "lng",
-    key: "lng", 
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => parseInt(a.lng) - parseInt(b.lng),
-  },
-  {
-    title: "1st",
-    dataIndex: "first",
-    key: "first"
-  },
-  {
-    title: "1st%",
-    dataIndex: "first_percentage",
-    key: "first_percentage"
-  },
-  {
-    title: "20+",
-    dataIndex: "twenty_plus",
-    key: "twenty_plus"
-  },
-  {
-    title: "40+",
-    dataIndex: "forty_plus",
-    key: "forty_plus"
-  },
-  {
-    title: "Rushing Fumbles",
-    dataIndex: "fum",
-    key: "fum"
-  }
-]
+  const columns = [
+    {
+      title: "Player Name",
+      dataIndex: "player",
+      key: "player",
+      ...getColumnSearchProps('player')
+    },
+    {
+      title: "Team",
+      dataIndex: "team",
+      key: "team"
+    },
+    {
+      title: "Pos",
+      dataIndex: "pos",
+      key: "pos"
+    },
+    {
+      title: "Att/G",
+      dataIndex: "att_g",
+      key: "att_g"
+    },
+    {
+      title: "Total Rushing Yards",
+      dataIndex: "yds",
+      key: "yds",
+      sorter: (a, b) => a.yds - b.yds,
+    },
+    {
+      title: "Avg",
+      dataIndex: "avg",
+      key: "avg"
+    },
+    {
+      title: "Yds/G",
+      dataIndex: "yds_g",
+      key: "yds_g"
+    },
+    {
+      title: "Total Rushing Touchdowns",
+      dataIndex: "td",
+      key: "td",
+      sorter: (a, b) => a.td - b.td,
+    },
+    {
+      title: "Longest Rush",
+      dataIndex: "lng",
+      key: "lng",
+      sorter: (a, b) => parseInt(a.lng) - parseInt(b.lng),
+    },
+    {
+      title: "1st",
+      dataIndex: "first",
+      key: "first"
+    },
+    {
+      title: "1st%",
+      dataIndex: "first_percentage",
+      key: "first_percentage"
+    },
+    {
+      title: "20+",
+      dataIndex: "twenty_plus",
+      key: "twenty_plus"
+    },
+    {
+      title: "40+",
+      dataIndex: "forty_plus",
+      key: "forty_plus"
+    },
+    {
+      title: "Rushing Fumbles",
+      dataIndex: "fum",
+      key: "fum"
+    }
+  ]
 
-const headers = [
-  {
-    label: "Player Name",
-    key: "player",
-  }, 
-  {
-    label: "Team",
-    key: "team"
-  },
-  {
-    label: "Pos",
-    key: "pos"
-  },
-  {
-    label: "Att/G",
-    key: "att_g"
-  },
-  {
-    label: "Total Rushing Yards",
-    key: "yds",
-  },
-  {
-    label: "Avg",
-    key: "avg"
-  },
-  {
-    label: "Yds/G",
-    key: "yds_g"
-  },
-  {
-    label: "Total Rushing Touchdowns",
-    key: "td",
-  },
-  {
-    label: "Longest Rush",
-    key: "lng", 
-  },
-  {
-    label: "1st",
-    key: "first"
-  },
-  {
-    label: "1st%",
-    key: "first_percentage"
-  },
-  {
-    label: "20+",
-    key: "twenty_plus"
-  },
-  {
-    label: "40+",
-    key: "forty_plus"
-  },
-  {
-    label: "Rushing Fumbles",
-    key: "fum"
-  }
-]
-  
-  return(
-    <div>
-      <CSVLink filename={`nfl_stats_${Date.now()}.csv`} data={filteredData.length > 0 ? filteredData : statsList } headers={headers}>
-        <Button type="primary">Download to CSV</Button>
-      </CSVLink>
-      <Table rowKey={record => record.id} columns={columns} dataSource={statsList} pagination={{ pageSize: 20 }} onChange={handleChange}/>
-    </div>
+  const headers = [
+    {
+      label: "Player Name",
+      key: "player",
+    },
+    {
+      label: "Team",
+      key: "team"
+    },
+    {
+      label: "Pos",
+      key: "pos"
+    },
+    {
+      label: "Att/G",
+      key: "att_g"
+    },
+    {
+      label: "Total Rushing Yards",
+      key: "yds",
+    },
+    {
+      label: "Avg",
+      key: "avg"
+    },
+    {
+      label: "Yds/G",
+      key: "yds_g"
+    },
+    {
+      label: "Total Rushing Touchdowns",
+      key: "td",
+    },
+    {
+      label: "Longest Rush",
+      key: "lng",
+    },
+    {
+      label: "1st",
+      key: "first"
+    },
+    {
+      label: "1st%",
+      key: "first_percentage"
+    },
+    {
+      label: "20+",
+      key: "twenty_plus"
+    },
+    {
+      label: "40+",
+      key: "forty_plus"
+    },
+    {
+      label: "Rushing Fumbles",
+      key: "fum"
+    }
+  ]
+
+  return (
+    <>
+      <PageHeader
+        title="🏈 NFL RUSHING STATS"
+      />
+      <div style={{ padding: 50 }}>
+        <CSVLink filename={`nfl_rushing_stats_${Date.now()}.csv`} data={filteredData.length > 0 ? filteredData : statsList} headers={headers}>
+          <Button type="primary"><Icon type="export" />Export to CSV</Button>
+        </CSVLink>
+        <Table
+          bordered
+          rowKey={record => record.id}
+          columns={columns}
+          dataSource={statsList}
+          pagination={{ pageSize: 15 }}
+          onChange={handleChange} />
+      </div>
+    </>
   )
 }
 
