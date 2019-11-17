@@ -6,7 +6,6 @@ import { CSVLink } from "react-csv"
 const NflStats = () => {
 
   const [statsList, setStatsList] = useState([])
-  const [searchText, setSearchText] = useState('')
   const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
@@ -18,12 +17,10 @@ const NflStats = () => {
   
   const handleSearch = (selectedKeys, confirm) => {
     confirm()
-    setSearchText(selectedKeys[0])
   }
 
   const handleReset = clearFilters => {
     clearFilters()
-    setSearchText('')
   }
 
   let handleChange = (pagination: any, filters: any, sorter: any, extra: { currentDataSource: Array<any>[] }) => 
@@ -205,9 +202,9 @@ const headers = [
   return(
     <div>
       <CSVLink filename={`nfl_stats_${Date.now()}.csv`} data={filteredData.length > 0 ? filteredData : statsList } headers={headers}>
-        Download Me
+        <Button type="primary">Download to CSV</Button>
       </CSVLink>
-      <Table columns={columns} dataSource={statsList} pagination={{ pageSize: 20 }} onChange={handleChange}/>
+      <Table rowKey={record => record.id} columns={columns} dataSource={statsList} pagination={{ pageSize: 20 }} onChange={handleChange}/>
     </div>
   )
 }
