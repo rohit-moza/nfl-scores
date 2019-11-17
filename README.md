@@ -25,9 +25,9 @@ In this repo is the file [`rushing.json`](/rushing.json). It contains data about
 
 ### Installation and running this solution
 
-#### Stack used and versions
+#### Stack/ versions
 - `Rails 6.0.1`
-- `Node v10.15.3`
+- `Node 10.15.3`
 - `Ruby 2.5.1`
 - `React 16.12.0`
 
@@ -49,4 +49,4 @@ In a new terminal, from the project root folder run the following:
 - `npm start`
 Note: The React App runs on localhost:3000 
 
-You can now interact with the app in your browser window. Please note: After searching for a player you can clear the filter using the player search bar menu.   
+You can now interact with the app in your browser window. Please note: after searching for a player by name, you can clear the player name filter using the player search bar menu.   
