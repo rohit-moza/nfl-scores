@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Input, Button, Icon } from 'antd';
+import { Table, Input, Button, Icon } from 'antd'
 import 'antd/dist/antd.css'
+import { CSVLink } from "react-csv"
 
 const NflStats = () => {
 
   const [statsList, setStatsList] = useState([])
   const [searchText, setSearchText] = useState('')
+  const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
   fetch("http://localhost:5000/api/nfl_stats")
@@ -23,6 +25,9 @@ const NflStats = () => {
     clearFilters()
     setSearchText('')
   }
+
+  let handleChange = (pagination: any, filters: any, sorter: any, extra: { currentDataSource: Array<any>[] }) => 
+    setFilteredData(extra['currentDataSource'])
 
   let getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -137,10 +142,72 @@ const columns = [
     key: "fum"
   }
 ]
+
+const headers = [
+  {
+    label: "Player Name",
+    key: "player",
+  }, 
+  {
+    label: "Team",
+    key: "team"
+  },
+  {
+    label: "Pos",
+    key: "pos"
+  },
+  {
+    label: "Att/G",
+    key: "att_g"
+  },
+  {
+    label: "Total Rushing Yards",
+    key: "yds",
+  },
+  {
+    label: "Avg",
+    key: "avg"
+  },
+  {
+    label: "Yds/G",
+    key: "yds_g"
+  },
+  {
+    label: "Total Rushing Touchdowns",
+    key: "td",
+  },
+  {
+    label: "Longest Rush",
+    key: "lng", 
+  },
+  {
+    label: "1st",
+    key: "first"
+  },
+  {
+    label: "1st%",
+    key: "first_percentage"
+  },
+  {
+    label: "20+",
+    key: "twenty_plus"
+  },
+  {
+    label: "40+",
+    key: "forty_plus"
+  },
+  {
+    label: "Rushing Fumbles",
+    key: "fum"
+  }
+]
   
   return(
     <div>
-      <Table columns={columns} dataSource={statsList} pagination={{ pageSize: 20 }}/>
+      <CSVLink filename={`nfl_stats_${Date.now()}.csv`} data={filteredData.length > 0 ? filteredData : statsList } headers={headers}>
+        Download Me
+      </CSVLink>
+      <Table columns={columns} dataSource={statsList} pagination={{ pageSize: 20 }} onChange={handleChange}/>
     </div>
   )
 }
