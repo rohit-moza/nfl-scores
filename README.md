@@ -38,7 +38,6 @@ Setup the Rails App first, followed by the React App
 From the project root folder run the following:
 - `cd scoresBackEnd`
 - `bundle install`
-- `rails db:create` 
 - `rails db:setup`
 - `rails s` 
 Note: The Rails App runs on localhost:5000 
